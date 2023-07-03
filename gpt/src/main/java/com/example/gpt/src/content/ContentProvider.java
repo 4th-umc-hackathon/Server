@@ -6,6 +6,7 @@ import com.example.gpt.utils.EntityDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ContentProvider {
     private final ContentRepository contentRepository;
+
     public List<GetContentRes> getContentResList(Long queryId){
         List<Content> contentList = contentRepository.findAllByMyQueryId(queryId);
 
@@ -26,5 +28,20 @@ public class ContentProvider {
         contentRes.setId(content.getId());
         contentRes.setCreatedAt(content.getCreatedAt());
         return contentRes;
+    }
+
+    public List<String> getFeedbackRes(Long queryId) {
+        List<Content> contentList = contentRepository.findAllByMyQueryId(queryId);
+        List<String> feedbackList = new ArrayList<>();
+        System.out.println(contentList.size());
+        for (Content content : contentList) {
+            String feedback = content.getFeedback();
+            if (feedback != null) {
+                System.out.println(feedback);
+                feedbackList.add(feedback);
+            }
+        }
+        System.out.println(feedbackList.size());
+        return feedbackList;
     }
 }

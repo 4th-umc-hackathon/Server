@@ -18,6 +18,9 @@ import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QueryService {
@@ -102,5 +105,15 @@ public class QueryService {
         System.out.println(content);
 
         return content;
+    }
+
+    public List<ChatCompletionChoice> makeFeedback(List<String> feedback) {
+        List<ChatCompletionChoice> grammerList =  new ArrayList<>();
+        for (String feedbackString : feedback){
+            ChatCompletionChoice result = chatGPTService.grammerFeedback(feedbackString);
+            System.out.println(result);
+            grammerList.add(result);
+        }
+        return grammerList;
     }
 }

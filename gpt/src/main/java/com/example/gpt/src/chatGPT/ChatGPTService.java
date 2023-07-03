@@ -91,4 +91,29 @@ public class ChatGPTService {
 
         return chatCompletionChoice;
     }
+
+
+    public ChatCompletionChoice grammerFeedback(String feedback){
+        // query id로 content list 가져오기
+//        List<GetContentRes> getContentResList = contentProvider.getContentResList(query.getId());
+        List<ChatMessage> chatMessages = new ArrayList<>();
+
+        chatMessages.add(new ChatMessage("system", "Please check if this sentence is grammatically correct."));
+        chatMessages.add(new ChatMessage("system", feedback));
+        chatMessages.add(new ChatMessage("user", feedback));
+
+        chatMessages.forEach(System.out::println);
+
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model("gpt-3.5-turbo")
+                .messages(chatMessages)
+                .temperature(0.8)
+                .frequencyPenalty(0.8)
+                .presencePenalty(0.8)
+                .build();
+
+        ChatCompletionChoice chatCompletionChoice = openAiService.createChatCompletion(chatCompletionRequest).getChoices().get(0);
+
+        return chatCompletionChoice;
+    }
 }
