@@ -1,0 +1,43 @@
+package com.example.gpt.src.content.model;
+
+import com.example.gpt.src.query.model.MyQuery;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+
+import javax.persistence.*;
+
+
+@Entity
+@DynamicInsert
+@Getter
+@Setter
+@NoArgsConstructor
+public class Content {
+    @Builder
+    public Content(String content, MyQuery myQuery) {
+        this.content = content;
+        this.myQuery = myQuery;
+    }
+    @Builder
+    public Content(String content, String feedback, MyQuery myQuery) {
+        this.content = content;
+        this.feedback = feedback;
+        this.myQuery = myQuery;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "INT UNSIGNED")
+    private Long id;
+    @Column(columnDefinition = "TEXT")
+    private String content;
+    private String feedback;
+    @Column(columnDefinition = "TIMESTAMP")
+    private String createdAt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "query_id", columnDefinition = "INT UNSIGNED")
+    private MyQuery myQuery;
+}
