@@ -1,16 +1,16 @@
 spring:
   datasource:
-    url:
-    username:
-    password:
-    driver-class-name:
+    url: jdbc:mysql://${CLOUD_AWS_DB_HOST}/${CLOUD_AWS_DB_DATABASE_NAME}?serverTimezone=Asia/Seoul
+    username: ${CLOUD_AWS_DB_USERNAME}
+    password: ${CLOUD_AWS_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
 
 chatgpt:
-  api-key:
+  api-key: ${CHAT_GPT_KEY}
