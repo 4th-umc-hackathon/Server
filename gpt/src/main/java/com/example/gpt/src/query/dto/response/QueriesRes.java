@@ -11,8 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class QueriesRes {
-    private String dear;
-    private String type;
+    private String myRole;
+    private String yourRole;
+    private String situation;
     private String createdAt;
     private List<GetContentRes> contentResList;
 }

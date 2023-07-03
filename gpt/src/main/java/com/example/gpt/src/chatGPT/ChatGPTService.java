@@ -27,20 +27,12 @@ public class ChatGPTService {
     public ChatCompletionChoice query(String content){
         List<ChatMessage> chatMessages = new ArrayList<>();
 
-        chatMessages.add(new ChatMessage("system", "You are the author. please apply the options below to compose your mail."));
+        chatMessages.add(new ChatMessage("system", "Please write in english the next line according to the given situation\n" +
+                "Condition 1 : Don't write your role like \"Your role:\"\n" +
+                "Condition 2 : Don't write \"Question:\"\n" +
+                "Condition 3 : Don't write \"As the\" and \"as a\"\n" +
+                "Condition 4 : First you start the question please\n"));
         chatMessages.add(new ChatMessage("user", content));
-
-//        content = "안녕 나의 사랑,\n" +
-//                "이번 주는 어떤 하루를 보내고 있니? 이렇게 일어나서 바로 너에게 참 좋은 아침인 것 같아. 그래도 조금 더 너와 함께 기상할 수 있다면 정말 행복할 거야.\n" +
-//                "오늘도 반가운 하루가 되길 바래. 매 순간, 내 마음은 당신만을 바라보며 달려요. 언제든지 연락해줘, 나는 항상 당신 곁에서 지켜볼게.\n" +
-//                "너무 사랑스러운 하루 보내길!\n" +
-//                "사랑해 ♥";
-//
-//        chatMessages.add(new ChatMessage("assistant", content));
-//
-//        content = "더 귀엽게 써줘";
-//
-//        chatMessages.add(new ChatMessage("user", content));
 
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                 .model("gpt-3.5-turbo")
@@ -65,24 +57,24 @@ public class ChatGPTService {
         for(int i=0; i<getContentResList.size(); i++){
             if(getContentResList.size() == 1){
                 System.out.println(1);
-                chatMessages.add(new ChatMessage("user", query.getQuestion()));
+//                chatMessages.add(new ChatMessage("user", query.getQuestion()));
                 chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
                 chatMessages.add(new ChatMessage("user", requeryReq.getFeedback()));
                 break;
             }
             if(i == 0){
                 System.out.println(2);
-                chatMessages.add(new ChatMessage("user", query.getQuestion()));
+//                chatMessages.add(new ChatMessage("user", query.getQuestion()));
             }
             else if (i == getContentResList.size()-1) {
-                System.out.println(3);
-                chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
-                chatMessages.add(new ChatMessage("user", requeryReq.getFeedback()));
-            }
+                    System.out.println(3);
+                    chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
+                    chatMessages.add(new ChatMessage("user", requeryReq.getFeedback()));
+                }
             else {
-                System.out.println(4);
-                chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
-                chatMessages.add(new ChatMessage("user", getContentResList.get(i).getFeedback()));
+                    System.out.println(4);
+                    chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
+                    chatMessages.add(new ChatMessage("user", getContentResList.get(i).getFeedback()));
             }
         }
         chatMessages.forEach(System.out::println);

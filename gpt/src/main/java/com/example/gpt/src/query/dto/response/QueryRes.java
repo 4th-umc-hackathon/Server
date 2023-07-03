@@ -11,8 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class QueryRes {
     private Long id;
-    private String dear;
-    private String type;
+    private String myRole;
+    private String yourRole;
+    private String situation;
     private String createdAt;
     private ContentRes contentRes;
 }

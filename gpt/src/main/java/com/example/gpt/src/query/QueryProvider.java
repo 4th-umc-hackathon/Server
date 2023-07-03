@@ -22,8 +22,9 @@ public class QueryProvider {
 
         for(MyQuery myQuery : myQueryList){
             QueriesRes queriesRes = QueriesRes.builder()
-                    .dear(myQuery.getDear())
-                    .type(myQuery.getType())
+                    .myRole(myQuery.getMyRole())
+                    .yourRole(myQuery.getYourRole())
+                    .situation(myQuery.getSituation())
                     .createdAt(myQuery.getCreatedAt())
                     .contentResList(contentProvider.getContentResList(myQuery.getId()))
                     .build();

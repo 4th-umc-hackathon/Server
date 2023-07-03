@@ -7,9 +7,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class QueryReq {
-    private String dear;
-    private String type;
-    private String content;
+    private String level;
+    private String age;
+    private String place;
+    private String situation;
+    private String myRole;
+    private String yourRole;
     private Long userId;
-    private Long profileId;
 }

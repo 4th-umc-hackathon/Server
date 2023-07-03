@@ -23,30 +23,30 @@ public class MyQuery {
                 : this.createdAt;
     }
     @Builder
-    public MyQuery(String dear, String type, String content, String question, User user) {
-        this.dear = dear;
-        this.type = type;
-        this.content = content;
-        this.question = question;
+    public MyQuery(String level, String age, String place, String myRole, String yourRole, String situation, User user) {
+        this.level = level;
+        this.age = age;
+        this.place = place;
+        this.myRole = myRole;
+        this.yourRole = yourRole;
+        this.situation = situation;
         this.user = user;
-//        this.profile = profile;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "INT UNSIGNED")
     private Long id;
-    private String dear;
-    private String type;
+    private String level;
+    private String age;
+    private String place;
     @Column(columnDefinition = "TEXT")
-    private String content;
-    private String question;
+    private String myRole;
+    private String yourRole;
+    private String situation;
     @Column(columnDefinition = "TIMESTAMP")
     private String createdAt;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "profile_id")
-//    private Profile profile;
 }

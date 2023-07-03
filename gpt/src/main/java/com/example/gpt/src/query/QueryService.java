@@ -37,8 +37,9 @@ public class QueryService {
 
         return new QueryRes(
                 myQueryCreated.getId(),
-                myQueryCreated.getDear(),
-                myQueryCreated.getType(),
+                myQueryCreated.getMyRole(),
+                myQueryCreated.getYourRole(),
+                myQueryCreated.getSituation(),
                 myQueryCreated.getCreatedAt(),
                 new ContentRes(contentCreated.getId(), result.getMessage().getContent(), result.getFinishReason())
         );
@@ -72,58 +73,31 @@ public class QueryService {
 //                );
 
         MyQuery myQuery = MyQuery.builder()
-                .dear(queryReq.getDear())
-                .type(queryReq.getType())
-                .content(queryReq.getContent())
-                .question(question)
+                .level(queryReq.getLevel())
+                .age(queryReq.getAge())
+                .place(queryReq.getPlace())
+                .myRole(queryReq.getMyRole())
+                .yourRole(queryReq.getYourRole())
+                .situation(queryReq.getSituation())
                 .user(user)
-//                .profile(profile)
                 .build();
 
         return queryRepository.save(myQuery);
     }
 
     public String makeContent(QueryReq queryReq){
-        String content = queryReq.getContent() ;
-
 //        Profile profile = profileRepository.findById(queryReq.getProfileId())
 //                .orElseThrow(
 //                        () -> new BaseException(BaseResponseStatus.INVALID_PROFILE_ID)
 //                );
 
-//        String content =
-//                "- To : " + queryReq.getDear() + "\n" +
-//                        "- Type : " + queryReq.getType() + "\n" +
-//                        "- Writing tone : ";
-//        if(profile.getMbti().charAt(0) == 'E')
-//            content += "Outgoing, Sociable, Energetic, ";
-//        else if(profile.getMbti().charAt(0) == 'I')
-//            content += "Introverted, Deliberate, Thoughtful, ";
-//
-//        if(profile.getMbti().charAt(1) == 'N')
-//            content += "Imaginative, Creative, Open-minded, ";
-//        else if(profile.getMbti().charAt(1) == 'S')
-//            content += "Realistic, Detail-oriented, Factual, ";
-//
-//        if(profile.getMbti().charAt(2) == 'F')
-//            content += "Empathetic, Caring, Emotional, Supportive, Harmonious, Compassionate, Caring, ";
-//        else if(profile.getMbti().charAt(2) == 'T')
-//            content += "Logical, Objective, Rational, Critical, Detached, Pragmatic, Impartial, Analytical, ";
-//
-//        if(profile.getMbti().charAt(3) == 'P')
-//            content += "Flexible, Easygoing, Laid-back, Adaptive\n";
-//        else if(profile.getMbti().charAt(3) == 'J')
-//            content += "Systematic, Responsible, Efficient, Punctual\n";
-
-        // TODO : 키워드 추가
-
-//        content += "- Content : " + queryReq.getContent() + "\n" +
-//                "- Language : in Korean\n" +
-//                "- Character limit : 400 characters in Korean\n";
-//        if(profile.getIs_polite())
-//            content += "- polite speech";
-//        else
-//            content += "- casual speech";
+        String content =
+                "Condition 5 : Limit all conversations to " + queryReq.getLevel() + "words \n" +
+                "Condition 6 : Proceed to the level of " + queryReq.getAge() + "school students \n" +
+                "- My role : " + queryReq.getMyRole() + "\n" +
+                        "- Your role : " + queryReq.getYourRole() + "\n" +
+                        "- Place : " + queryReq.getPlace() + "\n" +
+                        "- Situation : " + queryReq.getSituation() + "\n";
 
         System.out.println(content);
 

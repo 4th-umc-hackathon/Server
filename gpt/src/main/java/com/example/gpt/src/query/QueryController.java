@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/app/home/query")
+@RequestMapping("/api/chat")
 @RequiredArgsConstructor
 public class QueryController {
     private final QueryService queryService;
