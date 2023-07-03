@@ -52,7 +52,8 @@ public class ChatGPTService {
         List<GetContentRes> getContentResList = contentProvider.getContentResList(query.getId());
         List<ChatMessage> chatMessages = new ArrayList<>();
 
-        chatMessages.add(new ChatMessage("system", "Limit all conversations to 20 words"));
+        chatMessages.add(new ChatMessage("user", "Limit all conversations to 20 words"));
+        chatMessages.add(new ChatMessage("user", "Proceed to the level of elemetary school students "));
 
         for(int i=0; i<getContentResList.size(); i++){
             if(getContentResList.size() == 1){
