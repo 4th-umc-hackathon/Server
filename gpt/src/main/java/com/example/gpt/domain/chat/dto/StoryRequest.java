@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.io.Serializable;
 
 @Getter
-public class PerfumeStoryRequest implements Serializable {
+public class StoryRequest implements Serializable {
     private String place;
 
     private String situation;
@@ -17,10 +17,10 @@ public class PerfumeStoryRequest implements Serializable {
 
 //    private String styleAnswer;
 
-    public PerfumeStoryRequest(){}
+    public StoryRequest(){}
 
     @Builder
-    public PerfumeStoryRequest(String place, String situation, String your_role, String my_role) {
+    public StoryRequest(String place, String situation, String your_role, String my_role) {
         this.place = place;
         this.situation = situation;
         this.your_role = your_role;

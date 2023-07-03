@@ -3,7 +3,7 @@ package com.example.gpt.domain.chat.service;
 import com.example.gpt.domain.chat.ChatGptConfig;
 import com.example.gpt.domain.chat.dto.ChatGptRequest;
 import com.example.gpt.domain.chat.dto.ChatGptResponse;
-import com.example.gpt.domain.chat.dto.PerfumeStoryRequest;
+import com.example.gpt.domain.chat.dto.StoryRequest;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class PerfumeStoryService {
+public class StoryService {
     @Value("${chatgpt.api-key}")
     private String API_KEY;
     private static RestTemplate restTemplate = new RestTemplate();
@@ -37,12 +37,12 @@ public class PerfumeStoryService {
         return responseEntity.getBody();
     }
 
-    public ChatGptResponse askQuestionToChatGpt(PerfumeStoryRequest perfumeStoryRequest) {
+    public ChatGptResponse askQuestionToChatGpt(StoryRequest storyRequest) {
         return this.getResponse(
                 this.createHttpEntity(
                         ChatGptRequest.builder()
                                 .model(ChatGptConfig.MODEL)
-                                .prompt(perfumeStoryRequest.toPromptString())
+                                .prompt(storyRequest.toPromptString())
                                 .maxTokens(ChatGptConfig.MAX_TOKEN)
                                 .temperature(ChatGptConfig.TEMPERATURE)
                                 .topP(ChatGptConfig.TOP_P)

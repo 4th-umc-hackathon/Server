@@ -1,8 +1,8 @@
 package com.example.gpt.domain.chat.controller;
 
 import com.example.gpt.domain.chat.dto.ChatGptResponse;
-import com.example.gpt.domain.chat.dto.PerfumeStoryRequest;
-import com.example.gpt.domain.chat.service.PerfumeStoryService;
+import com.example.gpt.domain.chat.dto.StoryRequest;
+import com.example.gpt.domain.chat.service.StoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/perfume")
 public class PerfumeStoryController implements PerfumeStoryControllerDocs {
-    private final PerfumeStoryService perfumeStoryService;
+    private final StoryService storyService;
 
-    public PerfumeStoryController(PerfumeStoryService perfumeStoryService) {
-        this.perfumeStoryService = perfumeStoryService;
+    public PerfumeStoryController(StoryService storyService) {
+        this.storyService = storyService;
     }
 
     @PostMapping("/make-story")
-    public ResponseEntity<ChatGptResponse> makePerfumeStory(@RequestBody final PerfumeStoryRequest perfumeStoryRequest) {
-        log.info("Chat GPT에게 향수 스토리 생성 요청, 질문 내용 : {}",perfumeStoryRequest.toPromptString());
-        return ResponseEntity.ok(perfumeStoryService.askQuestionToChatGpt(perfumeStoryRequest));
+    public ResponseEntity<ChatGptResponse> makePerfumeStory(@RequestBody final StoryRequest storyRequest) {
+        log.info("Chat GPT에게 향수 스토리 생성 요청, 질문 내용 : {}", storyRequest.toPromptString());
+        return ResponseEntity.ok(storyService.askQuestionToChatGpt(storyRequest));
     }
 
 }
