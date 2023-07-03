@@ -64,7 +64,7 @@ public class ChatGPTService {
             }
             if(i == 0){
                 System.out.println(2);
-//                chatMessages.add(new ChatMessage("user", query.getQuestion()));
+                chatMessages.add(new ChatMessage("user", query.getQuestion()));
             }
             else if (i == getContentResList.size()-1) {
                     System.out.println(3);
