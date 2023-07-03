@@ -6,6 +6,7 @@ import com.example.gpt.src.query.dto.request.QueryReq;
 import com.example.gpt.src.query.dto.request.RequeryReq;
 import com.example.gpt.src.query.dto.response.QueriesRes;
 import com.example.gpt.src.query.dto.response.QueryRes;
+import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,6 +57,14 @@ public class QueryController {
     @GetMapping("/content/{contentId}")
     public BaseResponse<String> getContent(@PathVariable("contentId") Long contentId){
         return new BaseResponse(BaseResponseStatus.SUCCESS, queryProvider.getContent(contentId));
+    }
+
+    // 피드백 하기
+    @GetMapping("/feedback/{queryId}")
+    public BaseResponse<List<ChatCompletionChoice>> getFeedback(@PathVariable("queryId") Long queryId){
+        List<String> feedback = queryProvider.getFeedback(queryId);
+        System.out.println(feedback);
+        return new BaseResponse(BaseResponseStatus.SUCCESS, queryService.makeFeedback(feedback));
     }
 
 }

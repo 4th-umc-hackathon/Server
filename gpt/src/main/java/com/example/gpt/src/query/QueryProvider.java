@@ -38,4 +38,9 @@ public class QueryProvider {
         GetContentRes getContentRes = contentProvider.getContentRes(contentId);
         return getContentRes;
     }
+
+    public List<String> getFeedback(Long queryId) {
+        List<String> feedbackList = contentProvider.getFeedbackRes(queryId);
+        return feedbackList;
+    }
 }
