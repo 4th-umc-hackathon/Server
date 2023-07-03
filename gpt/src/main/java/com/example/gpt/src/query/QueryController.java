@@ -27,6 +27,14 @@ public class QueryController {
         return new BaseResponse(BaseResponseStatus.SUCCESS, queryService.query(queryReq));
     }
 
+//    // 주제 설정하기
+//    @PutMapping("/theme")
+//    public BaseResponse<QueryRes> query(
+//            @RequestBody QueryReq queryReq
+//    ){
+//        return new BaseResponse(BaseResponseStatus.SUCCESS, queryService.query(queryReq));
+//    }
+
     // 재질문하기
     @PostMapping("/{queryId}")
     public BaseResponse<QueryRes> requery(

@@ -52,7 +52,7 @@ public class ChatGPTService {
         List<GetContentRes> getContentResList = contentProvider.getContentResList(query.getId());
         List<ChatMessage> chatMessages = new ArrayList<>();
 
-        chatMessages.add(new ChatMessage("system", "You are the author. please apply the options below to compose your mail."));
+        chatMessages.add(new ChatMessage("system", "Limit all conversations to 20 words"));
 
         for(int i=0; i<getContentResList.size(); i++){
             if(getContentResList.size() == 1){
@@ -68,9 +68,9 @@ public class ChatGPTService {
             }
             else if (i == getContentResList.size()-1) {
                     System.out.println(3);
-                    chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
-                    chatMessages.add(new ChatMessage("user", requeryReq.getFeedback()));
-                }
+            chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
+            chatMessages.add(new ChatMessage("user", requeryReq.getFeedback()));
+        }
             else {
                     System.out.println(4);
                     chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));

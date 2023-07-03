@@ -50,6 +50,7 @@ public class QueryService {
                 .orElseThrow(
                         () -> new BaseException(BaseResponseStatus.INVALID_QUERY_ID)
                 );
+        System.out.println(query);
         ChatCompletionChoice result = chatGPTService.requery(query, requeryReq);
         // content 저장하기
         Content contentCreated = contentService.saveContent(result.getMessage().getContent(), requeryReq.getFeedback(), query);
@@ -67,10 +68,6 @@ public class QueryService {
                 .orElseThrow(
                         () -> new BaseException(BaseResponseStatus.INVALID_USER_ID)
                 );
-//        Profile profile = profileRepository.findById(queryReq.getProfileId())
-//                .orElseThrow(
-//                        () -> new BaseException(BaseResponseStatus.INVALID_PROFILE_ID)
-//                );
 
         MyQuery myQuery = MyQuery.builder()
                 .level(queryReq.getLevel())
@@ -86,11 +83,6 @@ public class QueryService {
     }
 
     public String makeContent(QueryReq queryReq){
-//        Profile profile = profileRepository.findById(queryReq.getProfileId())
-//                .orElseThrow(
-//                        () -> new BaseException(BaseResponseStatus.INVALID_PROFILE_ID)
-//                );
-
         String content =
                 "Condition 5 : Limit all conversations to " + queryReq.getLevel() + "words \n" +
                 "Condition 6 : Proceed to the level of " + queryReq.getAge() + "school students \n" +
