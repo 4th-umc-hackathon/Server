@@ -47,18 +47,19 @@ public class ChatGPTService {
         return chatCompletionChoice;
     }
 
-    public ChatCompletionChoice requery(MyQuery query, RequeryReq requeryReq){
+    public ChatCompletionChoice requery(MyQuery query,String age, String level, RequeryReq requeryReq){
         // query id로 content list 가져오기
         List<GetContentRes> getContentResList = contentProvider.getContentResList(query.getId());
         List<ChatMessage> chatMessages = new ArrayList<>();
 
-        chatMessages.add(new ChatMessage("user", "Limit all conversations to 20 words"));
-        chatMessages.add(new ChatMessage("user", "Proceed to the level of elemetary school students "));
+
 
         for(int i=0; i<getContentResList.size(); i++){
             if(getContentResList.size() == 1){
                 System.out.println(1);
 //                chatMessages.add(new ChatMessage("user", query.getQuestion()));
+                chatMessages.add(new ChatMessage("system", "Limit all conversations to" + age + " words"));
+                chatMessages.add(new ChatMessage("system", "Proceed to the level of" + level + " students "));
                 chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
                 chatMessages.add(new ChatMessage("user", requeryReq.getFeedback()));
                 break;
@@ -69,11 +70,15 @@ public class ChatGPTService {
             }
             else if (i == getContentResList.size()-1) {
                     System.out.println(3);
-            chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
-            chatMessages.add(new ChatMessage("user", requeryReq.getFeedback()));
+                chatMessages.add(new ChatMessage("system", "Limit all conversations to" + age + " words"));
+                chatMessages.add(new ChatMessage("system", "Proceed to the level of" + level + " students "));
+                chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
+                chatMessages.add(new ChatMessage("user", requeryReq.getFeedback()));
         }
             else {
                     System.out.println(4);
+                    chatMessages.add(new ChatMessage("system", "Limit all conversations to" + age + " words"));
+                    chatMessages.add(new ChatMessage("system", "Proceed to the level of" + level + " students "));
                     chatMessages.add(new ChatMessage("system", getContentResList.get(i).getContent()));
                     chatMessages.add(new ChatMessage("user", getContentResList.get(i).getFeedback()));
             }

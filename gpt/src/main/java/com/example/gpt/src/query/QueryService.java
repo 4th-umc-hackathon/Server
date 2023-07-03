@@ -16,12 +16,14 @@ import com.example.gpt.src.user.model.User;
 import com.example.gpt.utils.EntityDtoMapper;
 import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class QueryService {
     private final ChatGPTService chatGPTService;
@@ -53,8 +55,14 @@ public class QueryService {
                 .orElseThrow(
                         () -> new BaseException(BaseResponseStatus.INVALID_QUERY_ID)
                 );
+        String age = query.getAge();
+        String level = query.getLevel();
+
+//        log.info("handleTextMessage : {}", query);
+//        String content = " \n Limit all conversations to" + level + " words \n " +
+//                "Proceed to the level of \n" + age + "school student conversations \n";
         System.out.println(query);
-        ChatCompletionChoice result = chatGPTService.requery(query, requeryReq);
+        ChatCompletionChoice result = chatGPTService.requery(query, age, level, requeryReq);
         // content 저장하기
         Content contentCreated = contentService.saveContent(result.getMessage().getContent(), requeryReq.getFeedback(), query);
 
@@ -95,6 +103,9 @@ public class QueryService {
                         "- Situation : " + queryReq.getSituation() + "\n";
 
         System.out.println(content);
+
+//        log.info("handleTextMessage : {}", content);
+
 
         return content;
     }
